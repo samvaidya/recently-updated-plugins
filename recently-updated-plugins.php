@@ -15,6 +15,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Enqueue widget styles
+ */
+function rup_enqueue_styles() {
+	wp_enqueue_style(
+		'rup-widget-styles',
+		plugin_dir_url( __FILE__ ) . 'assets/css/widget.css',
+		array(),
+		'1.0.0'
+	);
+}
+add_action( 'admin_enqueue_scripts', 'rup_enqueue_styles' );
+
+/**
  * Register the dashboard widget
  */
 function rup_register_dashboard_widget() {
@@ -34,68 +47,7 @@ function rup_display_dashboard_widget() {
 	if ( ! function_exists( 'get_plugins' ) ) {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 	}
-
-	// Output widget styles
 	?>
-	<style>
-		.rup-widget-content {
-			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-		}
-		.rup-plugin-list {
-			margin: 0;
-			padding: 0;
-			list-style: none;
-		}
-		.rup-plugin-item {
-			padding: 12px;
-			margin-bottom: 8px;
-			background: #f6f7f7;
-			border-radius: 4px;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			transition: background 0.2s ease;
-		}
-		.rup-plugin-item:hover {
-			background: #e8eaeb;
-		}
-		.rup-plugin-name {
-			font-weight: 500;
-			color: #1d2327;
-			font-size: 14px;
-		}
-		.rup-version-badge {
-			display: inline-block;
-			padding: 4px 10px;
-			background: #2271b1;
-			color: #fff;
-			border-radius: 12px;
-			font-size: 11px;
-			font-weight: 600;
-			letter-spacing: 0.3px;
-		}
-		.rup-empty-message {
-			text-align: center;
-			color: #646970;
-			font-style: italic;
-			padding: 20px;
-			margin: 0;
-		}
-		.rup-manage-link {
-			margin-top: 15px;
-			padding-top: 12px;
-			border-top: 1px solid #dcdcde;
-			text-align: center;
-		}
-		.rup-manage-link a {
-			text-decoration: none;
-			color: #2271b1;
-			font-weight: 500;
-		}
-		.rup-manage-link a:hover {
-			color: #135e96;
-		}
-	</style>
 	<div class="rup-widget-content">
 	<?php
 
