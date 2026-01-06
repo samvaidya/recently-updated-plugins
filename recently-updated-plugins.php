@@ -63,12 +63,15 @@ function rup_display_dashboard_widget() {
 	// Display results
 	if ( empty( $recently_updated ) ) {
 		echo '<p>All quiet on the plugin front!</p>';
-		return;
+	} else {
+		echo '<ul style="margin: 0; padding-left: 20px;">';
+		foreach ( $recently_updated as $plugin_file => $plugin_data ) {
+			echo '<li>' . esc_html( $plugin_data['Name'] ) . '</li>';
+		}
+		echo '</ul>';
 	}
 
-	echo '<ul>';
-	foreach ( $recently_updated as $plugin_file => $plugin_data ) {
-		echo '<li>' . esc_html( $plugin_data['Name'] ) . '</li>';
-	}
-	echo '</ul>';
+	// Add Manage Plugins link
+	$plugins_url = admin_url( 'plugins.php' );
+	echo '<p style="margin-top: 15px;"><a href="' . esc_url( $plugins_url ) . '">Manage Plugins</a></p>';
 }
