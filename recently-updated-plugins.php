@@ -43,8 +43,31 @@ function rup_display_dashboard_widget() {
 		return;
 	}
 
-	echo '<ul>';
+	// Calculate timestamp for 7 days ago
+	$seven_days_ago = time() - ( 7 * DAY_IN_SECONDS );
+	$recently_updated = array();
+
+	// Filter plugins updated within the last 7 days
 	foreach ( $all_plugins as $plugin_file => $plugin_data ) {
+		$plugin_path = WP_PLUGIN_DIR . '/' . $plugin_file;
+
+		if ( file_exists( $plugin_path ) ) {
+			$last_modified = filemtime( $plugin_path );
+
+			if ( $last_modified >= $seven_days_ago ) {
+				$recently_updated[ $plugin_file ] = $plugin_data;
+			}
+		}
+	}
+
+	// Display results
+	if ( empty( $recently_updated ) ) {
+		echo '<p>All quiet on the plugin front!</p>';
+		return;
+	}
+
+	echo '<ul>';
+	foreach ( $recently_updated as $plugin_file => $plugin_data ) {
 		echo '<li>' . esc_html( $plugin_data['Name'] ) . '</li>';
 	}
 	echo '</ul>';
