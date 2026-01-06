@@ -1,4 +1,4 @@
-# Plugin: Recently Updated Dashboard Widget
+# Plugin: Recently Updated Plugins Dashboard Widget
 **Fusion AI Coders Program Application**
 
 ## 1. Project Overview
