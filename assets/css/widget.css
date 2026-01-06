@@ -22,7 +22,7 @@
 	border-radius: 4px;
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	align-items: flex-start;
 	transition: background 0.2s ease;
 }
 
@@ -37,12 +37,14 @@
 }
 
 .rup-plugin-name {
+	display: block;
 	font-weight: 500;
 	color: #1d2327;
 	font-size: 14px;
 }
 
 .rup-update-time {
+	display: block;
 	font-size: 12px;
 	color: #646970;
 }
