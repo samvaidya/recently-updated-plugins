@@ -93,8 +93,8 @@ function rup_display_dashboard_widget() {
 
 			echo '<li class="rup-plugin-item">';
 			echo '<div class="rup-plugin-info">';
-			echo '<span class="rup-plugin-name">' . $plugin_name . '</span>';
-			echo '<span class="rup-update-time">Updated ' . esc_html( $time_diff ) . ' ago</span>';
+			echo '<div class="rup-plugin-name">' . $plugin_name . '</div>';
+			echo '<div class="rup-update-time">Updated ' . esc_html( $time_diff ) . ' ago</div>';
 			echo '</div>';
 			echo '<span class="rup-version-badge">v' . $plugin_version . '</span>';
 			echo '</li>';
