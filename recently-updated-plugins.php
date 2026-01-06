@@ -72,7 +72,10 @@ function rup_display_dashboard_widget() {
 			$last_modified = filemtime( $plugin_path );
 
 			if ( $last_modified >= $seven_days_ago ) {
-				$recently_updated[ $plugin_file ] = $plugin_data;
+				$recently_updated[ $plugin_file ] = array(
+					'data'      => $plugin_data,
+					'timestamp' => $last_modified,
+				);
 			}
 		}
 	}
@@ -83,12 +86,16 @@ function rup_display_dashboard_widget() {
 	} else {
 		echo '<p class="rup-description">Plugins updated in the last 7 days:</p>';
 		echo '<ul class="rup-plugin-list">';
-		foreach ( $recently_updated as $plugin_file => $plugin_data ) {
-			$plugin_name = esc_html( $plugin_data['Name'] );
-			$plugin_version = esc_html( $plugin_data['Version'] );
+		foreach ( $recently_updated as $plugin_file => $plugin_info ) {
+			$plugin_name = esc_html( $plugin_info['data']['Name'] );
+			$plugin_version = esc_html( $plugin_info['data']['Version'] );
+			$time_diff = human_time_diff( $plugin_info['timestamp'], current_time( 'timestamp' ) );
 
 			echo '<li class="rup-plugin-item">';
+			echo '<div class="rup-plugin-info">';
 			echo '<span class="rup-plugin-name">' . $plugin_name . '</span>';
+			echo '<span class="rup-update-time">Updated ' . esc_html( $time_diff ) . ' ago</span>';
+			echo '</div>';
 			echo '<span class="rup-version-badge">v' . $plugin_version . '</span>';
 			echo '</li>';
 		}
