@@ -81,6 +81,7 @@ function rup_display_dashboard_widget() {
 	if ( empty( $recently_updated ) ) {
 		echo '<p class="rup-empty-message">All quiet on the plugin front!</p>';
 	} else {
+		echo '<p class="rup-description">Plugins updated in the last 7 days:</p>';
 		echo '<ul class="rup-plugin-list">';
 		foreach ( $recently_updated as $plugin_file => $plugin_data ) {
 			$plugin_name = esc_html( $plugin_data['Name'] );
