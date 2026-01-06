@@ -35,11 +35,76 @@ function rup_display_dashboard_widget() {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 	}
 
+	// Output widget styles
+	?>
+	<style>
+		.rup-widget-content {
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+		}
+		.rup-plugin-list {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		.rup-plugin-item {
+			padding: 12px;
+			margin-bottom: 8px;
+			background: #f6f7f7;
+			border-radius: 4px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			transition: background 0.2s ease;
+		}
+		.rup-plugin-item:hover {
+			background: #e8eaeb;
+		}
+		.rup-plugin-name {
+			font-weight: 500;
+			color: #1d2327;
+			font-size: 14px;
+		}
+		.rup-version-badge {
+			display: inline-block;
+			padding: 4px 10px;
+			background: #2271b1;
+			color: #fff;
+			border-radius: 12px;
+			font-size: 11px;
+			font-weight: 600;
+			letter-spacing: 0.3px;
+		}
+		.rup-empty-message {
+			text-align: center;
+			color: #646970;
+			font-style: italic;
+			padding: 20px;
+			margin: 0;
+		}
+		.rup-manage-link {
+			margin-top: 15px;
+			padding-top: 12px;
+			border-top: 1px solid #dcdcde;
+			text-align: center;
+		}
+		.rup-manage-link a {
+			text-decoration: none;
+			color: #2271b1;
+			font-weight: 500;
+		}
+		.rup-manage-link a:hover {
+			color: #135e96;
+		}
+	</style>
+	<div class="rup-widget-content">
+	<?php
+
 	// Get all installed plugins
 	$all_plugins = get_plugins();
 
 	if ( empty( $all_plugins ) ) {
-		echo '<p>No plugins found.</p>';
+		echo '<p class="rup-empty-message">No plugins found.</p>';
+		echo '</div>';
 		return;
 	}
 
@@ -62,16 +127,26 @@ function rup_display_dashboard_widget() {
 
 	// Display results
 	if ( empty( $recently_updated ) ) {
-		echo '<p>All quiet on the plugin front!</p>';
+		echo '<p class="rup-empty-message">All quiet on the plugin front!</p>';
 	} else {
-		echo '<ul style="margin: 0; padding-left: 20px;">';
+		echo '<ul class="rup-plugin-list">';
 		foreach ( $recently_updated as $plugin_file => $plugin_data ) {
-			echo '<li>' . esc_html( $plugin_data['Name'] ) . '</li>';
+			$plugin_name = esc_html( $plugin_data['Name'] );
+			$plugin_version = esc_html( $plugin_data['Version'] );
+
+			echo '<li class="rup-plugin-item">';
+			echo '<span class="rup-plugin-name">' . $plugin_name . '</span>';
+			echo '<span class="rup-version-badge">v' . $plugin_version . '</span>';
+			echo '</li>';
 		}
 		echo '</ul>';
 	}
 
 	// Add Manage Plugins link
 	$plugins_url = admin_url( 'plugins.php' );
-	echo '<p style="margin-top: 15px;"><a href="' . esc_url( $plugins_url ) . '">Manage Plugins</a></p>';
+	echo '<div class="rup-manage-link">';
+	echo '<a href="' . esc_url( $plugins_url ) . '">Manage Plugins →</a>';
+	echo '</div>';
+
+	echo '</div>';
 }
